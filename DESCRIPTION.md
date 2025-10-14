@@ -1,1 +1,33 @@
-TODO: Quick scratch breakdown of your to-dos, how you broke up the different tasks and any QA / tests you did.
+To-dos
+
+- [ ] Create initial component structure
+  - [ ] Main layout
+    - [ ] Header
+    - [ ] Main content
+    - [ ] Footer
+  - [ ] Loan calculator form
+    - [ ] Input component
+    - [ ] Button component
+    - [ ] Select component
+  - [ ] Repayment widget
+- [ ] Create initial styling
+  - [ ] Main layout
+  - [ ] Loan calculator form
+  - [ ] Repayment widget
+  - [ ] Responsive design
+- [ ] Implement calculation logic
+- [ ] Add API service
+- [ ] Add / review input validation
+- [ ] Add / review error handling
+- [ ] Add / review accessibility
+- [ ] Add internationalisation
+- [ ] Create unit tests
+  - [ ] Components
+  - [ ] Services
+  - [ ] Utilities
+- [ ] Create E2E tests
+  - [ ] Successful form submission
+  - [ ] Unsuccessful form submission
+  - [ ] Form validation
+  - [ ] Repayment widget
+- [ ] Update documentation
