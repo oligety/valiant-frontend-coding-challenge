@@ -9,7 +9,7 @@ To-dos
     - [x] Input component
     - [x] Button component
     - [x] Select component
-  - [ ] Repayment widget
+  - [x] Repayment widget
 - [ ] Create initial styling
   - [ ] Main layout
   - [ ] Loan calculator form
