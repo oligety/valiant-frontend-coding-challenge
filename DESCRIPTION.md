@@ -5,10 +5,10 @@ To-dos
     - [x] Header
     - [x] Main content
     - [x] Footer
-  - [ ] Loan calculator form
-    - [ ] Input component
-    - [ ] Button component
-    - [ ] Select component
+  - [x] Loan calculator form
+    - [x] Input component
+    - [x] Button component
+    - [x] Select component
   - [ ] Repayment widget
 - [ ] Create initial styling
   - [ ] Main layout
