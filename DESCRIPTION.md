@@ -1,10 +1,10 @@
 To-dos
 
 - [ ] Create initial component structure
-  - [ ] Main layout
-    - [ ] Header
-    - [ ] Main content
-    - [ ] Footer
+  - [x] Main layout
+    - [x] Header
+    - [x] Main content
+    - [x] Footer
   - [ ] Loan calculator form
     - [ ] Input component
     - [ ] Button component
