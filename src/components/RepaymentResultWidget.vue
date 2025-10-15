@@ -1,5 +1,5 @@
 <script setup>
-
+import { formatCurrency } from '../utils/utils.js'
 import BaseButton from '@/components/BaseButton.vue'
 
 defineOptions({ name: 'RepaymentResultWidget' })
@@ -18,17 +18,6 @@ const props = defineProps({
     default: 0,
   },
 })
-
-// methods
-function formatCurrency (value) {
-  if (typeof value !== 'number') {
-    return value // Or handle as an error
-  }
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-  }).format(value)
-}
 </script>
 
 <template>

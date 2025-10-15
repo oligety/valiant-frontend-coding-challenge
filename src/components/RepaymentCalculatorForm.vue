@@ -15,6 +15,7 @@ const loanAmount = ref(null)
 const selectedLoanPurpose = ref(null)
 const selectedRepaymentPeriod = ref(null)
 const selectedLoanTerm = ref(null)
+const calculationError = ref('')
 const loanPurposeList = ref([
   {
     label: 'Day-to-day capital',
@@ -87,8 +88,12 @@ const { computeRepayment } = useRepaymentCalculator()
 
 // methods
 function calculateRepayment () {
-  // Basic validations for presence
-  if (!selectedLoanPurpose.value || !selectedRepaymentPeriod.value || !selectedLoanTerm.value) return
+  calculationError.value = ''
+
+  if (!selectedLoanPurpose.value || !selectedRepaymentPeriod.value || !selectedLoanTerm.value) {
+    calculationError.value = 'Please complete all fields.'
+    return
+  }
 
   const result = computeRepayment({
     amount: loanAmount.value,
@@ -97,7 +102,10 @@ function calculateRepayment () {
     totalMonths: selectedLoanTerm.value.value,
   })
 
-  if (!result) return
+  if (!result) {
+    calculationError.value = 'Unable to calculate repayment. Check your inputs and try again.'
+    return
+  }
 
   emit('updatedRepaymentData', result)
 }
@@ -107,6 +115,7 @@ function resetForm () {
   selectedRepaymentPeriod.value = null
   selectedLoanTerm.value = null
   loanAmount.value = null
+  calculationError.value = ''
 
   emit('resetForm')
 }
@@ -148,6 +157,15 @@ function resetForm () {
         :options="loanTermList"
         placeholder="Select loan term"
       />
+
+      <p
+        v-if="calculationError"
+        class="text-sm text-red-600"
+        role="alert"
+        aria-live="polite"
+      >
+        {{ calculationError }}
+      </p>
     </div>
 
     <div class="mt-4 flex items-center justify-between gap-3">

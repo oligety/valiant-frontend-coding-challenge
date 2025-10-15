@@ -1,33 +1,58 @@
 import PMT from '@/utils/PMT.js'
 
 export default function useRepaymentCalculator () {
+  function isFinitePositiveNumber (n) {
+    return Number.isFinite(n) && n > 0
+  }
+
   function computeRepayment ({ amount, annualRate, paymentsPerYear, totalMonths }) {
-    // Validate inputs
-    const amountNum = Number(amount)
-    const periodsPerYearNum = Number(paymentsPerYear)
-    const totalMonthsNum = Number(totalMonths)
-    const annualRateNum = Number(annualRate)
+    try {
+      // Coerce inputs
+      const amountNum = Number(amount)
+      const periodsPerYearNum = Number(paymentsPerYear)
+      const totalMonthsNum = Number(totalMonths)
+      const annualRateNum = Number(annualRate)
 
-    if (!Number.isFinite(amountNum) || amountNum <= 0) return null
-    if (!Number.isFinite(periodsPerYearNum) || periodsPerYearNum <= 0) return null
-    if (!Number.isFinite(totalMonthsNum) || totalMonthsNum <= 0) return null
-    if (!Number.isFinite(annualRateNum) || annualRateNum < 0) return null
+      // Validate numeric ranges
+      if (!isFinitePositiveNumber(amountNum)) return null
+      if (!isFinitePositiveNumber(periodsPerYearNum)) return null
+      if (!isFinitePositiveNumber(totalMonthsNum)) return null
+      if (!Number.isFinite(annualRateNum) || annualRateNum < 0) return null
 
-    // Compute inputs
-    const years = totalMonthsNum / 12
-    const nper = Math.round(periodsPerYearNum * years)
-    if (nper <= 0) return null
+      // Derived values
+      const years = totalMonthsNum / 12
+      const nper = Math.round(periodsPerYearNum * years)
+      if (!Number.isFinite(nper) || nper <= 0) return null
 
-    const periodicRate = annualRateNum / periodsPerYearNum
+      const periodicRate = annualRateNum / periodsPerYearNum
+      if (!Number.isFinite(periodicRate)) return null
 
-    const repaymentPerPeriod = Math.abs(PMT(periodicRate, nper, amountNum))
-    const repaymentTotal = repaymentPerPeriod * nper
-    const interestRate = Number((annualRateNum * 100).toFixed(2))
+      // Guard: avoid NaN/Infinity from extreme inputs
+      if (Math.abs(periodicRate) > 1e6 || nper > 1e6) return null
 
-    return {
-      repaymentPerPeriod,
-      repaymentTotal,
-      interestRate,
+      // Safe PMT computation
+      let repaymentPerPeriod
+      try {
+        repaymentPerPeriod = Math.abs(PMT(periodicRate, nper, amountNum))
+      } catch {
+        return null
+      }
+
+      if (!Number.isFinite(repaymentPerPeriod)) return null
+
+      const repaymentTotal = repaymentPerPeriod * nper
+      if (!Number.isFinite(repaymentTotal)) return null
+
+      const interestRate = Number((annualRateNum * 100).toFixed(2))
+
+      return {
+        repaymentPerPeriod,
+        repaymentTotal,
+        interestRate,
+      }
+    } catch {
+      // Any unexpected error results in a safe null
+      return null
     }
   }
 

@@ -15,7 +15,7 @@ To-dos
   - [ ] Loan calculator form
   - [ ] Repayment widget
   - [ ] Responsive design
-- [ ] Implement calculation logic
+- [x] Implement calculation logic
 - [ ] Add API service
 - [ ] Add / review input validation
 - [ ] Add / review error handling
