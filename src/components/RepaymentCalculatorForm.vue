@@ -1,12 +1,20 @@
 <script setup>
-import { ref } from 'vue'
+import { computed, defineEmits, ref } from 'vue'
 import BaseInput from '@/components/BaseInput.vue'
 import BaseSelect from '@/components/BaseSelect.vue'
 import BaseButton from '@/components/BaseButton.vue'
+import useRepaymentCalculator from '@/composables/useRepaymentCalculator.js'
 
 defineOptions({ name: 'LoanRepaymentCalculatorForm' })
 
-const loanAmount = ref('')
+// events
+const emit = defineEmits(['updatedRepaymentData', 'resetForm'])
+
+// reactive state
+const loanAmount = ref(null)
+const selectedLoanPurpose = ref(null)
+const selectedRepaymentPeriod = ref(null)
+const selectedLoanTerm = ref(null)
 const loanPurposeList = ref([
   {
     label: 'Day-to-day capital',
@@ -68,25 +76,45 @@ const loanTermList = ref([
     value: 240,
   },
 ])
-const selectedLoanPurpose = ref('')
-const selectedRepaymentPeriod = ref('')
-const selectedLoanTerm = ref('')
 
+// computed properties
+const isValidForm = computed(() => {
+  return selectedLoanPurpose.value && selectedRepaymentPeriod.value && selectedLoanTerm.value && loanAmount.value
+})
+
+// composables
+const { computeRepayment } = useRepaymentCalculator()
+
+// methods
 function calculateRepayment () {
-  // TODO: Implement loan repayment calculation logic
+  // Basic validations for presence
+  if (!selectedLoanPurpose.value || !selectedRepaymentPeriod.value || !selectedLoanTerm.value) return
+
+  const result = computeRepayment({
+    amount: loanAmount.value,
+    annualRate: selectedLoanPurpose.value.annualRate,
+    paymentsPerYear: selectedRepaymentPeriod.value.value,
+    totalMonths: selectedLoanTerm.value.value,
+  })
+
+  if (!result) return
+
+  emit('updatedRepaymentData', result)
 }
 
 function resetForm () {
-  selectedLoanPurpose.value = ''
-  selectedRepaymentPeriod.value = ''
-  selectedLoanTerm.value = ''
-  loanAmount.value = ''
+  selectedLoanPurpose.value = null
+  selectedRepaymentPeriod.value = null
+  selectedLoanTerm.value = null
+  loanAmount.value = null
+
+  emit('resetForm')
 }
 </script>
 
 <template>
   <div
-    id="loanCalculatorForm"
+    id="repaymentCalculatorForm"
     class="rounded-lg border border-gray-200 p-4 shadow-sm"
   >
     <div class="flex flex-col space-y-4">
@@ -126,6 +154,7 @@ function resetForm () {
       <BaseButton
         id="calculateButton"
         class="w-full"
+        :disabled="!isValidForm"
         @click="calculateRepayment"
       >
         Calculate
@@ -133,7 +162,7 @@ function resetForm () {
 
       <BaseButton
         id="resetButton"
-        variant="secondary"
+        variant="danger"
         class="w-full"
         @click="resetForm"
       >
