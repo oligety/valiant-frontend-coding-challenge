@@ -30,7 +30,9 @@ const emit = defineEmits(['update:modelValue'])
 
 const isOpen = ref(false)
 const selectedOption = computed(() => {
-  return props.options.find(option => option.value === props.modelValue)
+  // if modelValue is already an object, return it; otherwise find by value
+  if (props.modelValue && typeof props.modelValue === 'object') return props.modelValue
+  return props.options.find(option => option.value === props.modelValue) || null
 })
 
 function toggleDropdown () {
@@ -38,7 +40,7 @@ function toggleDropdown () {
 }
 
 function selectOption (option) {
-  emit('update:modelValue', option.value)
+  emit('update:modelValue', option)
   isOpen.value = false
 }
 </script>
