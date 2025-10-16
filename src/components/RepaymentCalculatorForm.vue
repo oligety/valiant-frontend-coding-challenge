@@ -1,9 +1,10 @@
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import BaseInput from '@/components/BaseInput.vue'
 import BaseSelect from '@/components/BaseSelect.vue'
 import BaseButton from '@/components/BaseButton.vue'
 import useRepaymentCalculator from '@/composables/useRepaymentCalculator.js'
+import { getLoanPurposes, getLoanTerms, getRepaymentPeriods } from '@/services/apiService.js'
 
 defineOptions({ name: 'LoanRepaymentCalculatorForm' })
 
@@ -16,67 +17,9 @@ const selectedLoanPurpose = ref(null)
 const selectedRepaymentPeriod = ref(null)
 const selectedLoanTerm = ref(null)
 const calculationError = ref('')
-const loanPurposeList = ref([
-  {
-    label: 'Day-to-day capital',
-    value: 'general',
-    annualRate: 0.1,
-  },
-  {
-    label: 'Vehicle or transport',
-    value: 'vehicle',
-    annualRate: 0.045,
-  },
-  {
-    label: 'Financing a property',
-    value: 'property',
-    annualRate: 0.029,
-  },
-])
-const repaymentPeriodList = ref([
-  {
-    label: 'Weekly',
-    value: 52,
-  },
-  {
-    label: 'Fortnightly',
-    value: 26,
-  },
-  {
-    label: 'Monthly',
-    value: 12,
-  },
-])
-const loanTermList = ref([
-  {
-    label: '6 months',
-    value: 6,
-  },
-  {
-    label: '12 months',
-    value: 12,
-  },
-  {
-    label: '2 years',
-    value: 24,
-  },
-  {
-    label: '3 years',
-    value: 36,
-  },
-  {
-    label: '5 years',
-    value: 60,
-  },
-  {
-    label: '10 years',
-    value: 120,
-  },
-  {
-    label: '20 years',
-    value: 240,
-  },
-])
+const loanPurposeList = ref([])
+const repaymentPeriodList = ref([])
+const loanTermList = ref([])
 
 // computed properties
 const isValidForm = computed(() => {
@@ -119,6 +62,24 @@ function resetForm () {
 
   emit('resetForm')
 }
+
+async function loadInitialData () {
+  calculationError.value = ''
+  Promise.all([getLoanPurposes(), getRepaymentPeriods(), getLoanTerms()])
+    .then(([loanPurposesResponse, repaymentPeriodsResponse, loanTermsResponse]) => {
+      loanPurposeList.value = loanPurposesResponse.data
+      repaymentPeriodList.value = repaymentPeriodsResponse.data
+      loanTermList.value = loanTermsResponse.data
+    })
+    .catch(() => {
+      calculationError.value = 'Failed to load initial data. Please try again later.'
+    })
+}
+
+// lifecycle hooks
+onMounted(async () => {
+  await loadInitialData()
+})
 </script>
 
 <template>
