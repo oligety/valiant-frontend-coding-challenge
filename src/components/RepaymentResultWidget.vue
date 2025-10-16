@@ -17,6 +17,10 @@ const props = defineProps({
     type: Number,
     default: 0,
   },
+  repaymentPeriodLabel: {
+    type: String,
+    default: '',
+  },
 })
 </script>
 
@@ -34,7 +38,7 @@ const props = defineProps({
       class="mt-4"
       aria-live="polite"
     >
-      <h3>Your weekly repayment</h3>
+      <h3>Your {{ props.repaymentPeriodLabel }} repayment</h3>
       <p class="text-2xl font-semibold">
         {{ formatCurrency(props.repaymentPerPeriod) }}
       </p>

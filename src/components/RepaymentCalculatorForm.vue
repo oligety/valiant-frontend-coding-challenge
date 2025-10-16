@@ -50,7 +50,7 @@ function calculateRepayment () {
     return
   }
 
-  emit('updatedRepaymentData', result)
+  emit('updatedRepaymentData', { ...result, repaymentPeriodLabel: selectedRepaymentPeriod.value.label })
 }
 
 function resetForm () {

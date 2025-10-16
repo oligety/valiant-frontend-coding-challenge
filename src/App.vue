@@ -46,6 +46,7 @@ function resetRepaymentData () {
         :repayment-per-period="repaymentData.repaymentPerPeriod"
         :repayment-total="repaymentData.repaymentTotal"
         :interest-rate="repaymentData.interestRate"
+        :repayment-period-label="repaymentData.repaymentPeriodLabel"
       />
       <RepaymentInformationWidget v-else />
     </main>
