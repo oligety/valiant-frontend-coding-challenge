@@ -4,7 +4,7 @@ import BaseInput from '@/components/BaseInput.vue'
 import BaseSelect from '@/components/BaseSelect.vue'
 import BaseButton from '@/components/BaseButton.vue'
 import useRepaymentCalculator from '@/composables/useRepaymentCalculator.js'
-import { getLoanPurposes, getLoanTerms, getRepaymentPeriods } from '@/services/apiService.js'
+import apiService from '@/services/apiService.js'
 
 defineOptions({ name: 'LoanRepaymentCalculatorForm' })
 
@@ -65,7 +65,7 @@ function resetForm () {
 
 async function loadInitialData () {
   calculationError.value = ''
-  Promise.all([getLoanPurposes(), getRepaymentPeriods(), getLoanTerms()])
+  Promise.all([apiService.getLoanPurposes(), apiService.getRepaymentPeriods(), apiService.getLoanTerms()])
     .then(([loanPurposesResponse, repaymentPeriodsResponse, loanTermsResponse]) => {
       loanPurposeList.value = loanPurposesResponse.data
       repaymentPeriodList.value = repaymentPeriodsResponse.data

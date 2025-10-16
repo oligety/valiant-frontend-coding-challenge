@@ -16,14 +16,14 @@ To-dos
   - [ ] Repayment widget
   - [ ] Responsive design
 - [x] Implement calculation logic
-- [ ] Add API service
+- [x] Add API service
 - [ ] Add / review input validation
 - [ ] Add / review error handling
 - [ ] Add / review accessibility
 - [ ] Add internationalisation
 - [ ] Create unit tests
   - [ ] Components
-  - [ ] Services
+  - [x] Services
   - [ ] Utilities
 - [ ] Create E2E tests
   - [ ] Successful form submission

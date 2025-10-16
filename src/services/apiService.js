@@ -1,18 +1,28 @@
 import axios from 'axios'
 
-const apiClient = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || '',
-  timeout: 10000,
-})
+const apiService = () => {
+  const apiClient = axios.create({
+    baseURL: import.meta.env.VITE_API_BASE_URL || '',
+    timeout: 10000,
+  })
 
-export function getLoanPurposes () {
-  return apiClient.get('/loan-purposes')
+  function getLoanPurposes () {
+    return apiClient.get('/loan-purposes')
+  }
+
+  function getRepaymentPeriods () {
+    return apiClient.get('/requested-repayment-periods')
+  }
+
+  function getLoanTerms () {
+    return apiClient.get('/requested-term-months')
+  }
+
+  return {
+    getLoanPurposes,
+    getRepaymentPeriods,
+    getLoanTerms,
+  }
 }
 
-export function getRepaymentPeriods () {
-  return apiClient.get('/requested-repayment-periods')
-}
-
-export function getLoanTerms () {
-  return apiClient.get('/requested-term-months')
-}
+export default apiService()
