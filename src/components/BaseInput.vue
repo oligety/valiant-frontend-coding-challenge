@@ -1,6 +1,4 @@
 <script setup>
-import { defineProps, defineEmits } from 'vue'
-
 defineOptions({ name: 'BaseInput' })
 
 const props = defineProps({

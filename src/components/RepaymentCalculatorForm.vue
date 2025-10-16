@@ -1,5 +1,5 @@
 <script setup>
-import { computed, defineEmits, ref } from 'vue'
+import { computed, ref } from 'vue'
 import BaseInput from '@/components/BaseInput.vue'
 import BaseSelect from '@/components/BaseSelect.vue'
 import BaseButton from '@/components/BaseButton.vue'
