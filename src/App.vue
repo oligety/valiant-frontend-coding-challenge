@@ -29,16 +29,16 @@ function resetRepaymentData () {
   >
     <header
       id="mainHeader"
-      class="mx-auto w-full max-w-content px-4 pt-6 sm:pt-8"
+      class="mx-auto w-full max-w-content p-4"
     >
       <LayoutHeader />
     </header>
 
     <main
       id="mainContent"
-      class="mx-auto mt-6 w-full max-w-content flex-1 px-4 sm:mt-8"
+      class="mx-auto w-full max-w-content flex-1 px-4 pb-6"
     >
-      <div class="grid gap-6 lg:grid-cols-2">
+      <div class="grid gap-4 md:grid-cols-2">
         <RepaymentCalculatorForm
           @updated-repayment-data="updateRepaymentData"
           @reset-form="resetRepaymentData"
@@ -56,7 +56,7 @@ function resetRepaymentData () {
 
     <footer
       id="mainFooter"
-      class="mt-12"
+      class="mt-auto"
     >
       <LayoutFooter />
     </footer>

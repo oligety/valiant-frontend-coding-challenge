@@ -85,13 +85,13 @@ onMounted(async () => {
 <template>
   <div
     id="repaymentCalculatorForm"
-    class="rounded-lg border border-gray-200 bg-white p-6 shadow-sm"
+    class="rounded-lg border border-gray-200 bg-white p-4 shadow-sm sm:p-5"
   >
-    <h2 class="mb-6 text-lg font-semibold text-gray-900">
+    <h2 class="mb-4 text-base font-semibold text-gray-900 sm:text-lg">
       Calculate your repayment
     </h2>
 
-    <div class="flex flex-col space-y-4">
+    <div class="flex flex-col space-y-3.5">
       <BaseInput
         id="loanAmount"
         v-model="loanAmount"
@@ -126,17 +126,17 @@ onMounted(async () => {
 
       <div
         v-if="calculationError"
-        class="rounded-lg bg-red-50 p-4"
+        class="rounded-lg bg-red-50 p-3 sm:p-4"
         role="alert"
         aria-live="polite"
       >
-        <p class="text-sm font-medium text-red-800">
+        <p class="text-xs font-medium text-red-800 sm:text-sm">
           {{ calculationError }}
         </p>
       </div>
     </div>
 
-    <div class="mt-6 flex flex-col gap-3 sm:flex-row">
+    <div class="mt-4 flex flex-col gap-2.5 sm:flex-row sm:gap-3">
       <BaseButton
         id="calculateButton"
         class="w-full"
