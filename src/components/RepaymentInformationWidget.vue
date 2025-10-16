@@ -7,9 +7,9 @@ defineOptions({ name: 'RepaymentInformationWidget' })
 <template>
   <div
     id="repaymentInformationWidget"
-    class="flex flex-col items-center rounded-lg border border-gray-200 p-4 text-center shadow-sm"
+    class="flex flex-col items-center rounded-lg border border-gray-200 bg-white p-6 text-center shadow-sm"
   >
-    <h2 class="text-xl font-semibold">
+    <h2 class="text-xl font-semibold text-gray-900">
       Your results will appear here.
     </h2>
     <p class="mt-4 text-gray-500">

@@ -50,20 +50,25 @@ function selectOption (option) {
     <label
       v-if="props.label"
       :for="props.id"
-      class="mb-1 block text-sm font-medium text-gray-700"
+      class="mb-2 block text-sm font-medium text-gray-700"
     >{{ props.label }}</label>
 
     <button
-      class="relative w-full rounded-md border border-gray-300 bg-white px-4 py-2 pr-10 text-left shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+      :id="props.id"
+      type="button"
+      class="relative w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 pr-10 text-left shadow-sm transition-colors duration-150 hover:border-gray-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+      :class="{ 'border-primary-500 ring-2 ring-primary-500/20': isOpen }"
       :aria-expanded="isOpen"
       :aria-controls="`${props.id}-listbox`"
       @click="toggleDropdown"
     >
-      {{ selectedOption ? selectedOption.label : placeholder }}
+      <span :class="{ 'text-gray-500': !selectedOption }">
+        {{ selectedOption ? selectedOption.label : placeholder }}
+      </span>
 
       <svg
-        class="pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2 text-gray-500 transition-transform"
-        :class="{ 'rotate-180': isOpen }"
+        class="pointer-events-none absolute right-3 top-1/2 size-5 -translate-y-1/2 text-gray-400 transition-transform duration-200"
+        :class="{ 'rotate-180 text-primary-500': isOpen }"
         viewBox="0 0 20 20"
         fill="currentColor"
         aria-hidden="true"
@@ -76,19 +81,31 @@ function selectOption (option) {
       </svg>
     </button>
 
-    <ul
-      v-if="isOpen"
-      class="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md border border-gray-300 bg-white shadow-lg"
+    <transition
+      enter-active-class="transition duration-100 ease-out"
+      enter-from-class="transform scale-95 opacity-0"
+      enter-to-class="transform scale-100 opacity-100"
+      leave-active-class="transition duration-75 ease-in"
+      leave-from-class="transform scale-100 opacity-100"
+      leave-to-class="transform scale-95 opacity-0"
     >
-      <li
-        v-for="option in props.options"
-        :key="option.value"
-        class="cursor-pointer px-4 py-2 hover:bg-indigo-50 hover:text-indigo-700"
-        :class="{ 'bg-indigo-100 font-medium': selectedOption && selectedOption.value === option.value }"
-        @click="selectOption(option)"
+      <ul
+        v-if="isOpen"
+        :id="`${props.id}-listbox`"
+        class="absolute z-10 mt-2 max-h-60 w-full overflow-auto rounded-lg border border-gray-200 bg-white py-1 shadow-lg"
+        role="listbox"
       >
-        {{ option.label }}
-      </li>
-    </ul>
+        <li
+          v-for="option in props.options"
+          :key="option.value"
+          role="option"
+          class="cursor-pointer px-4 py-2.5 text-sm transition-colors hover:bg-primary-50 hover:text-primary-700"
+          :class="{ 'bg-primary-50 font-semibold text-primary-700': selectedOption && selectedOption.value === option.value }"
+          @click="selectOption(option)"
+        >
+          {{ option.label }}
+        </li>
+      </ul>
+    </transition>
   </div>
 </template>

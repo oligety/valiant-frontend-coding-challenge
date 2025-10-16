@@ -7,8 +7,12 @@ defineOptions({ name: 'LayoutFooter' })
 <template>
   <div
     id="layoutFooter"
-    class="mx-auto max-w-screen-lg px-4 py-6 text-center text-sm text-gray-600"
+    class="border-t border-gray-200 bg-white py-6 text-center"
   >
-    © 2025 Valiant. All Rights Reserved.
+    <div class="max-w-content mx-auto px-4">
+      <p class="text-sm text-gray-600">
+        © 2025 Valiant. All Rights Reserved.
+      </p>
+    </div>
   </div>
 </template>

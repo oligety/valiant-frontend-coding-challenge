@@ -7,14 +7,14 @@ defineOptions({ name: 'LayoutHeader' })
 <template>
   <div
     id="layoutHeader"
-    class="flex flex-col items-start gap-3 md:flex-row md:items-center"
+    class="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-6"
   >
     <img
       :src="logo"
       alt="Valiant Finance logo"
-      class="h-10 w-auto"
+      class="h-10 w-auto sm:h-12"
     >
-    <h1 class="text-xl font-semibold md:text-2xl">
+    <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl">
       Loan Repayment Calculator
     </h1>
   </div>

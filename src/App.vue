@@ -25,35 +25,38 @@ function resetRepaymentData () {
 <template>
   <div
     id="mainLayout"
-    class="mx-auto flex max-w-screen-lg flex-col items-center px-4"
+    class="flex min-h-screen flex-col bg-gray-50"
   >
     <header
       id="mainHeader"
+      class="mx-auto w-full max-w-content px-4 pt-6 sm:pt-8"
     >
       <LayoutHeader />
     </header>
 
     <main
       id="mainContent"
-      class="mt-6 grid gap-6 md:grid-cols-2"
+      class="mx-auto mt-6 w-full max-w-content flex-1 px-4 sm:mt-8"
     >
-      <RepaymentCalculatorForm
-        @updated-repayment-data="updateRepaymentData"
-        @reset-form="resetRepaymentData"
-      />
-      <RepaymentResultWidget
-        v-if="repaymentData"
-        :repayment-per-period="repaymentData.repaymentPerPeriod"
-        :repayment-total="repaymentData.repaymentTotal"
-        :interest-rate="repaymentData.interestRate"
-        :repayment-period-label="repaymentData.repaymentPeriodLabel"
-      />
-      <RepaymentInformationWidget v-else />
+      <div class="grid gap-6 lg:grid-cols-2">
+        <RepaymentCalculatorForm
+          @updated-repayment-data="updateRepaymentData"
+          @reset-form="resetRepaymentData"
+        />
+        <RepaymentResultWidget
+          v-if="repaymentData"
+          :repayment-per-period="repaymentData.repaymentPerPeriod"
+          :repayment-total="repaymentData.repaymentTotal"
+          :interest-rate="repaymentData.interestRate"
+          :repayment-period-label="repaymentData.repaymentPeriodLabel"
+        />
+        <RepaymentInformationWidget v-else />
+      </div>
     </main>
 
     <footer
       id="mainFooter"
-      class="mt-10"
+      class="mt-12"
     >
       <LayoutFooter />
     </footer>
