@@ -21,10 +21,10 @@ To-dos
 - [x] Add / review error handling
 - [x] Add / review accessibility
 - [ ] Add internationalisation
-- [ ] Create unit tests
-  - [ ] Components
+- [x] Create unit tests
+  - [x] Components
   - [x] Services
-  - [ ] Utilities
+  - [x] Utilities
 - [ ] Create E2E tests
   - [ ] Successful form submission
   - [ ] Unsuccessful form submission
