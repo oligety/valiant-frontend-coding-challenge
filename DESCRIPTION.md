@@ -18,8 +18,8 @@ To-dos
 - [x] Implement calculation logic
 - [x] Add API service
 - [x] Add / review input validation
-- [ ] Add / review error handling
-- [ ] Add / review accessibility
+- [x] Add / review error handling
+- [x] Add / review accessibility
 - [ ] Add internationalisation
 - [ ] Create unit tests
   - [ ] Components

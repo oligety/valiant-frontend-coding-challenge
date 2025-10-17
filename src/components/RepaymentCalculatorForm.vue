@@ -197,6 +197,7 @@ onMounted(async () => {
           type="text"
           inputmode="numeric"
           placeholder="e.g. 10'000"
+          aria-label="Loan amount input"
           :error="loanAmountError"
           :success="!loanAmountError && isValidLoanAmount"
           :required="true"
@@ -264,6 +265,7 @@ onMounted(async () => {
       <BaseButton
         id="calculateButton"
         class="w-full"
+        aria-label="Calculate loan repayments button"
         :disabled="!isValidForm"
         @click="calculateRepayment"
       >
@@ -287,6 +289,7 @@ onMounted(async () => {
         id="resetButton"
         variant="outline"
         class="w-full"
+        aria-label="Reset form button"
         @click="resetForm"
       >
         <svg

@@ -99,6 +99,7 @@ const props = defineProps({
       id="getInTouchButton"
       variant="secondary"
       class="mt-6 w-full"
+      aria-label="Get in touch button"
     >
       <svg
         class="mr-2 size-4"

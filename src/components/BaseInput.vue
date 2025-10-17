@@ -32,6 +32,10 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  ariaLabel: {
+    type: String,
+    default: '',
+  },
 })
 
 // events
@@ -110,6 +114,7 @@ const labelClasses = computed(() => {
         :value="props.modelValue"
         :class="inputClasses"
         :required="props.required"
+        :aria-label="props.ariaLabel || props.label"
         :aria-required="props.required"
         :aria-invalid="!!props.error"
         :aria-describedby="props.error ? `${props.id}-error` : undefined"
