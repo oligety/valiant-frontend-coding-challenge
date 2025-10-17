@@ -91,14 +91,14 @@ const labelClasses = computed(() => {
       <span
         v-if="props.required"
         class="text-danger-500"
-        aria-label="required"
-      >*</span>
+      > *</span>
     </label>
     <div class="relative">
       <!-- Prefix slot (e.g., $) -->
       <div
         v-if="slots.prefix"
         class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4"
+        aria-hidden="true"
       >
         <slot name="prefix" />
       </div>
@@ -109,6 +109,10 @@ const labelClasses = computed(() => {
         :type="props.type"
         :value="props.modelValue"
         :class="inputClasses"
+        :required="props.required"
+        :aria-required="props.required"
+        :aria-invalid="!!props.error"
+        :aria-describedby="props.error ? `${props.id}-error` : undefined"
         v-bind="$attrs"
         @input="updateInput"
       >
@@ -117,6 +121,7 @@ const labelClasses = computed(() => {
       <div
         v-if="success && !error"
         class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4"
+        aria-hidden="true"
       >
         <svg
           class="size-5 text-success-500"
@@ -135,6 +140,7 @@ const labelClasses = computed(() => {
       <div
         v-if="error"
         class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4"
+        aria-hidden="true"
       >
         <svg
           class="size-5 text-danger-500"
@@ -153,7 +159,10 @@ const labelClasses = computed(() => {
     <!-- Error message -->
     <p
       v-if="error"
+      :id="`${props.id}-error`"
       class="mt-1.5 text-sm text-danger-700"
+      role="alert"
+      aria-live="polite"
     >
       {{ error }}
     </p>

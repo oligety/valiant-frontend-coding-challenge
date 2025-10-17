@@ -16,6 +16,15 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  type: {
+    type: String,
+    default: 'button',
+    validator: (value) => ['button', 'submit', 'reset'].includes(value),
+  },
+  ariaLabel: {
+    type: String,
+    default: '',
+  },
 })
 
 // events
@@ -47,8 +56,10 @@ function handleClick () {
 <template>
   <button
     :id="props.id"
+    :type="props.type"
     :disabled="props.disabled"
     :class="classes"
+    :aria-label="props.ariaLabel || undefined"
     @click="handleClick"
   >
     <slot />

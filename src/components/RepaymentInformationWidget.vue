@@ -5,10 +5,16 @@ defineOptions({ name: 'RepaymentInformationWidget' })
 <template>
   <div
     id="repaymentInformationWidget"
+    role="status"
+    aria-live="polite"
+    aria-label="Repayment calculation placeholder"
     class="flex animate-fade-in flex-col items-center justify-center rounded-2xl border-2 border-dashed border-gray-200 bg-gradient-to-br from-gray-50 to-white p-6 text-center sm:p-8 md:p-12"
   >
     <!-- Animated Icon -->
-    <div class="relative mb-6">
+    <div
+      class="relative mb-6"
+      aria-hidden="true"
+    >
       <div class="absolute inset-0 animate-ping rounded-full bg-primary-400 opacity-20" />
       <div class="relative flex size-20 items-center justify-center rounded-2xl bg-gradient-to-br from-primary-100 to-primary-200 shadow-medium">
         <svg
@@ -36,25 +42,37 @@ defineOptions({ name: 'RepaymentInformationWidget' })
     </p>
 
     <!-- Steps -->
-    <div class="flex flex-col gap-2 text-left text-sm">
-      <div class="flex items-center gap-2 text-gray-600">
-        <div class="flex size-6 shrink-0 items-center justify-center rounded-full bg-primary-100 text-xs font-semibold text-primary-700">
+    <ol
+      class="flex flex-col gap-2 text-left text-sm"
+      aria-label="Steps to calculate repayment"
+    >
+      <li class="flex items-center gap-2 text-gray-600">
+        <div
+          class="flex size-6 shrink-0 items-center justify-center rounded-full bg-primary-100 text-xs font-semibold text-primary-700"
+          aria-hidden="true"
+        >
           1
         </div>
         <span>Enter your loan amount</span>
-      </div>
-      <div class="flex items-center gap-2 text-gray-600">
-        <div class="flex size-6 shrink-0 items-center justify-center rounded-full bg-primary-100 text-xs font-semibold text-primary-700">
+      </li>
+      <li class="flex items-center gap-2 text-gray-600">
+        <div
+          class="flex size-6 shrink-0 items-center justify-center rounded-full bg-primary-100 text-xs font-semibold text-primary-700"
+          aria-hidden="true"
+        >
           2
         </div>
         <span>Select loan purpose and terms</span>
-      </div>
-      <div class="flex items-center gap-2 text-gray-600">
-        <div class="flex size-6 shrink-0 items-center justify-center rounded-full bg-primary-100 text-xs font-semibold text-primary-700">
+      </li>
+      <li class="flex items-center gap-2 text-gray-600">
+        <div
+          class="flex size-6 shrink-0 items-center justify-center rounded-full bg-primary-100 text-xs font-semibold text-primary-700"
+          aria-hidden="true"
+        >
           3
         </div>
         <span>Click calculate to see results</span>
-      </div>
-    </div>
+      </li>
+    </ol>
   </div>
 </template>
