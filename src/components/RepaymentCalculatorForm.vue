@@ -1,10 +1,10 @@
 <script setup>
 import { computed, onMounted, ref } from 'vue'
+import calculatorService from '@/services/calculatorService.js'
+import apiService from '@/services/apiService.js'
 import BaseInput from '@/components/BaseInput.vue'
 import BaseSelect from '@/components/BaseSelect.vue'
 import BaseButton from '@/components/BaseButton.vue'
-import useRepaymentCalculator from '@/composables/useRepaymentCalculator.js'
-import apiService from '@/services/apiService.js'
 
 defineOptions({ name: 'LoanRepaymentCalculatorForm' })
 
@@ -42,9 +42,6 @@ const isValidForm = computed(() => {
       !loanAmountError.value
   )
 })
-
-// composables
-const { computeRepayment } = useRepaymentCalculator()
 
 // methods
 function formatCurrency (value) {
@@ -117,7 +114,7 @@ function calculateRepayment () {
   }
 
   const cleanAmount = loanAmount.value.replace(/\s/g, '')
-  const result = computeRepayment({
+  const result = calculatorService.computeRepayment({
     amount: parseInt(cleanAmount, 10),
     annualRate: selectedLoanPurpose.value.annualRate,
     paymentsPerYear: selectedRepaymentPeriod.value.value,
