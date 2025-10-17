@@ -20,19 +20,21 @@ const props = defineProps({
   },
 })
 
+// events
 const emit = defineEmits(['update:modelValue'])
 
-const updateInput = (event) => {
+// methods
+function updateInput (event) {
   emit('update:modelValue', event.target.value)
 }
 </script>
 
 <template>
-  <div>
+  <div class="group">
     <label
       v-if="props.label"
       :for="props.id"
-      class="mb-1.5 block text-sm font-medium text-gray-700"
+      class="mb-2 block text-sm font-medium text-gray-700 transition-colors group-focus-within:text-primary-700"
     >
       {{ props.label }}
     </label>
@@ -40,7 +42,7 @@ const updateInput = (event) => {
       :id="props.id"
       :type="props.type"
       :value="props.modelValue"
-      class="block w-full rounded-md border border-gray-300 bg-white px-3 py-2.5 text-base text-gray-900 shadow-sm placeholder:text-gray-400 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+      class="block w-full rounded-xl border-2 border-gray-200 bg-white px-4 py-3 text-base text-gray-900 transition-all placeholder:text-gray-400 hover:border-gray-300 focus:border-primary-500 focus:outline-none focus:ring-4 focus:ring-primary-500/10 sm:text-sm"
       v-bind="$attrs"
       @input="updateInput"
     >

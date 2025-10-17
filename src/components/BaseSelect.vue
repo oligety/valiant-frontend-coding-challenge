@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 
 defineOptions({ name: 'BaseSelect' })
 
@@ -26,15 +26,20 @@ const props = defineProps({
   },
 })
 
+// events
 const emit = defineEmits(['update:modelValue'])
 
+// reactive state
 const isOpen = ref(false)
+const selectRef = ref(null)
+
+// computed properties
 const selectedOption = computed(() => {
-  // if modelValue is already an object, return it; otherwise find by value
   if (props.modelValue && typeof props.modelValue === 'object') return props.modelValue
   return props.options.find(option => option.value === props.modelValue) || null
 })
 
+// methods
 function toggleDropdown () {
   isOpen.value = !isOpen.value
 }
@@ -43,27 +48,50 @@ function selectOption (option) {
   emit('update:modelValue', option)
   isOpen.value = false
 }
+
+function handleClickOutside (event) {
+  if (selectRef.value && !selectRef.value.contains(event.target)) {
+    isOpen.value = false
+  }
+}
+
+// lifecycle hooks
+onMounted(() => {
+  document.addEventListener('click', handleClickOutside)
+})
+
+onUnmounted(() => {
+  document.removeEventListener('click', handleClickOutside)
+})
 </script>
 
 <template>
-  <div class="relative">
+  <div
+    ref="selectRef"
+    class="group relative"
+  >
     <label
       v-if="props.label"
       :for="props.id"
-      class="mb-1.5 block text-sm font-medium text-gray-700"
+      class="mb-2 block text-sm font-medium text-gray-700 transition-colors group-focus-within:text-primary-700"
     >{{ props.label }}</label>
 
     <button
-      class="relative w-full rounded-md border border-gray-300 bg-white px-3 py-2.5 pr-10 text-left text-base shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm"
+      :id="props.id"
+      type="button"
+      class="relative w-full rounded-xl border-2 border-gray-200 bg-white px-4 py-3 pr-10 text-left text-base transition-all hover:border-gray-300 focus:border-primary-500 focus:outline-none focus:ring-4 focus:ring-primary-500/10 sm:text-sm"
+      :class="{ 'border-primary-500 ring-4 ring-primary-500/10': isOpen }"
       :aria-expanded="isOpen"
       :aria-controls="`${props.id}-listbox`"
       @click="toggleDropdown"
     >
-      {{ selectedOption ? selectedOption.label : placeholder }}
+      <span :class="{ 'text-gray-400': !selectedOption }">
+        {{ selectedOption ? selectedOption.label : placeholder }}
+      </span>
 
       <svg
-        class="pointer-events-none absolute right-3 top-1/2 size-5 -translate-y-1/2 text-gray-500 transition-transform"
-        :class="{ 'rotate-180': isOpen }"
+        class="pointer-events-none absolute right-3 top-1/2 size-5 -translate-y-1/2 text-gray-400 transition-all duration-200"
+        :class="{ 'rotate-180 text-primary-600': isOpen }"
         viewBox="0 0 20 20"
         fill="currentColor"
         aria-hidden="true"
@@ -76,19 +104,31 @@ function selectOption (option) {
       </svg>
     </button>
 
-    <ul
-      v-if="isOpen"
-      class="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md border border-gray-300 bg-white shadow-lg"
+    <transition
+      enter-active-class="transition ease-out duration-200"
+      enter-from-class="transform opacity-0 scale-95"
+      enter-to-class="transform opacity-100 scale-100"
+      leave-active-class="transition ease-in duration-150"
+      leave-from-class="transform opacity-100 scale-100"
+      leave-to-class="transform opacity-0 scale-95"
     >
-      <li
-        v-for="option in props.options"
-        :key="option.value"
-        class="cursor-pointer px-3 py-2.5 text-base hover:bg-indigo-50 hover:text-indigo-700 sm:text-sm"
-        :class="{ 'bg-indigo-100 font-medium': selectedOption && selectedOption.value === option.value }"
-        @click="selectOption(option)"
+      <ul
+        v-if="isOpen"
+        :id="`${props.id}-listbox`"
+        class="absolute z-10 mt-2 max-h-60 w-full overflow-auto rounded-xl border-2 border-gray-200 bg-white py-2 shadow-large"
+        role="listbox"
       >
-        {{ option.label }}
-      </li>
-    </ul>
+        <li
+          v-for="option in props.options"
+          :key="option.value"
+          role="option"
+          class="cursor-pointer px-4 py-2.5 text-base transition-colors hover:bg-primary-50 hover:text-primary-700 sm:text-sm"
+          :class="{ 'bg-primary-100/70 font-semibold text-primary-700': selectedOption && selectedOption.value === option.value }"
+          @click="selectOption(option)"
+        >
+          {{ option.label }}
+        </li>
+      </ul>
+    </transition>
   </div>
 </template>

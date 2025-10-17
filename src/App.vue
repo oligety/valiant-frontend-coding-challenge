@@ -25,20 +25,20 @@ function resetRepaymentData () {
 <template>
   <div
     id="mainLayout"
-    class="flex min-h-screen flex-col bg-gray-50"
+    class="flex min-h-screen flex-col bg-gradient-to-br from-gray-50 via-white to-primary-50/30"
   >
     <header
       id="mainHeader"
-      class="mx-auto w-full max-w-content p-4"
+      class="mx-auto w-full max-w-content px-4 py-6"
     >
       <LayoutHeader />
     </header>
 
     <main
       id="mainContent"
-      class="mx-auto w-full max-w-content flex-1 px-4 pb-6"
+      class="mx-auto w-full max-w-content flex-1 px-4 pb-8"
     >
-      <div class="grid gap-4 md:grid-cols-2">
+      <div class="grid gap-6 md:grid-cols-2">
         <RepaymentCalculatorForm
           @updated-repayment-data="updateRepaymentData"
           @reset-form="resetRepaymentData"

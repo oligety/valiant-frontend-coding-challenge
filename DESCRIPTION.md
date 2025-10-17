@@ -1,6 +1,6 @@
 To-dos
 
-- [ ] Create initial component structure
+- [x] Create initial component structure
   - [x] Main layout
     - [x] Header
     - [x] Main content
@@ -10,11 +10,11 @@ To-dos
     - [x] Button component
     - [x] Select component
   - [x] Repayment widget
-- [ ] Create initial styling
-  - [ ] Main layout
-  - [ ] Loan calculator form
-  - [ ] Repayment widget
-  - [ ] Responsive design
+- [x] Create initial styling
+  - [x] Main layout
+  - [x] Loan calculator form
+  - [x] Repayment widget
+  - [x] Responsive design
 - [x] Implement calculation logic
 - [x] Add API service
 - [ ] Add / review input validation

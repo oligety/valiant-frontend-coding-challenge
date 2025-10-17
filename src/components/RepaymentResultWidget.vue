@@ -27,59 +27,93 @@ const props = defineProps({
 <template>
   <div
     id="repaymentResultWidget"
-    class="flex flex-col items-center rounded-lg border border-gray-200 bg-white p-4 shadow-sm sm:p-5"
+    class="animate-scale-in rounded-2xl border-2 border-gray-100 bg-white p-5 shadow-large backdrop-blur-sm transition-all duration-300 hover:border-gray-200 hover:shadow-xl sm:p-6"
   >
-    <h2 class="text-base font-semibold text-gray-900 sm:text-lg">
-      Your results
-    </h2>
+    <div class="mb-5 flex items-center gap-3">
+      <div class="flex size-10 items-center justify-center rounded-xl bg-gradient-to-br from-success-500 to-success-600 shadow-medium">
+        <svg
+          class="size-5 text-white"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+          />
+        </svg>
+      </div>
+      <h2 class="text-lg font-semibold text-gray-900">
+        Your results
+      </h2>
+    </div>
 
-    <div class="mt-4 w-full space-y-3">
+    <div class="flex flex-col space-y-4">
+      <!-- Primary Result -->
       <div
         id="repaymentPerPeriod"
-        class="rounded-lg bg-gradient-to-br from-primary-50 to-primary-100/50 p-4 sm:p-5"
+        class="rounded-xl bg-gradient-to-br from-primary-500 to-primary-700 p-6 ring-2 ring-primary-200"
         aria-live="polite"
       >
-        <h3 class="text-xs font-medium text-gray-600 sm:text-sm">
-          Your {{ props.repaymentPeriodLabel }} repayment
-        </h3>
-        <p class="mt-1.5 text-2xl font-bold text-gray-900 sm:text-3xl">
+        <p class="text-xs font-medium uppercase tracking-wider text-white/90">
+          {{ props.repaymentPeriodLabel }} repayment
+        </p>
+        <p class="mt-2 text-4xl font-bold text-white">
           {{ formatCurrency(props.repaymentPerPeriod) }}
         </p>
       </div>
 
-      <div
-        id="repaymentTotal"
-        class="rounded-lg bg-gray-50 p-4 sm:p-5"
-        aria-live="polite"
-      >
-        <h3 class="text-xs font-medium text-gray-600 sm:text-sm">
-          Total repayment
-        </h3>
-        <p class="mt-1.5 text-2xl font-bold text-gray-900 sm:text-3xl">
-          {{ formatCurrency(props.repaymentTotal) }}
-        </p>
-      </div>
+      <!-- Secondary Results Grid -->
+      <div class="grid grid-cols-2 gap-4">
+        <div
+          id="repaymentTotal"
+          class="rounded-xl bg-gradient-to-br from-gray-50 to-gray-100 p-4 ring-2 ring-gray-100"
+          aria-live="polite"
+        >
+          <p class="text-xs font-medium text-gray-600">
+            Total repayment
+          </p>
+          <p class="mt-2 text-xl font-bold text-gray-900">
+            {{ formatCurrency(props.repaymentTotal) }}
+          </p>
+        </div>
 
-      <div
-        id="interestRate"
-        class="rounded-lg bg-gray-50 p-4 sm:p-5"
-        aria-live="polite"
-      >
-        <h3 class="text-xs font-medium text-gray-600 sm:text-sm">
-          Interest rate
-        </h3>
-        <p class="mt-1.5 text-2xl font-bold text-gray-900 sm:text-3xl">
-          {{ props.interestRate }}%
-        </p>
+        <div
+          id="interestRate"
+          class="rounded-xl bg-gradient-to-br from-secondary-50 to-secondary-100 p-4 ring-2 ring-secondary-100"
+          aria-live="polite"
+        >
+          <p class="text-xs font-medium text-secondary-700">
+            Interest rate
+          </p>
+          <p class="mt-2 text-xl font-bold text-secondary-900">
+            {{ props.interestRate }}%
+          </p>
+        </div>
       </div>
     </div>
 
     <BaseButton
       id="getInTouchButton"
-      variant="primary"
-      class="mt-4 w-full"
+      variant="secondary"
+      class="mt-6 w-full"
     >
-      Get in touch
+      <svg
+        class="mr-2 size-4"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+        />
+      </svg>
+      Get a quote
     </BaseButton>
   </div>
 </template>

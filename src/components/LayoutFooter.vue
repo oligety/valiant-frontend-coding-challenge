@@ -1,7 +1,5 @@
 <script setup>
-
 defineOptions({ name: 'LayoutFooter' })
-
 </script>
 
 <template>
@@ -9,10 +7,10 @@ defineOptions({ name: 'LayoutFooter' })
     id="layoutFooter"
     class="border-t border-gray-200 bg-white py-4 text-center"
   >
-    <div class="mx-auto max-w-content px-4">
-      <p class="text-xs text-gray-600 sm:text-sm">
-        © 2025 Valiant. All Rights Reserved.
-      </p>
+    <div class="flex justify-center">
+      <div class="flex items-center gap-2 rounded-full bg-gradient-to-r from-primary-600/10 via-secondary-600/10 to-primary-600/10 px-4 py-2">
+        <span class="text-xs font-medium text-gray-600">2025 Made with ❤️ by Olivier Liechti</span>
+      </div>
     </div>
   </div>
 </template>

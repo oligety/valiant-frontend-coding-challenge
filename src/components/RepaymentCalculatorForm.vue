@@ -85,13 +85,30 @@ onMounted(async () => {
 <template>
   <div
     id="repaymentCalculatorForm"
-    class="rounded-lg border border-gray-200 bg-white p-4 shadow-sm sm:p-5"
+    class="animate-slide-up rounded-2xl border-2 border-gray-100 bg-white p-5 shadow-large backdrop-blur-sm transition-all duration-300 hover:border-gray-200 hover:shadow-xl sm:p-6"
   >
-    <h2 class="mb-4 text-base font-semibold text-gray-900 sm:text-lg">
-      Calculate your repayment
-    </h2>
+    <div class="mb-5 flex items-center gap-3">
+      <div class="flex size-10 items-center justify-center rounded-xl bg-gradient-to-br from-primary-500 to-primary-700 shadow-medium">
+        <svg
+          class="size-5 text-white"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"
+          />
+        </svg>
+      </div>
+      <h2 class="text-lg font-semibold text-gray-900">
+        Calculate your repayment
+      </h2>
+    </div>
 
-    <div class="flex flex-col space-y-3.5">
+    <div class="flex flex-col space-y-4">
       <BaseInput
         id="loanAmount"
         v-model="loanAmount"
@@ -126,32 +143,75 @@ onMounted(async () => {
 
       <div
         v-if="calculationError"
-        class="rounded-lg bg-red-50 p-3 sm:p-4"
+        class="animate-fade-in rounded-xl bg-danger-50 p-4 ring-2 ring-danger-100"
         role="alert"
         aria-live="polite"
       >
-        <p class="text-xs font-medium text-red-800 sm:text-sm">
-          {{ calculationError }}
-        </p>
+        <div class="flex items-start gap-3">
+          <svg
+            class="size-5 shrink-0 text-danger-600"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+              clip-rule="evenodd"
+            />
+          </svg>
+          <p
+            v-if="calculationError"
+            class="text-sm font-medium text-danger-700"
+            role="alert"
+          >
+            {{ calculationError }}
+          </p>
+        </div>
       </div>
     </div>
 
-    <div class="mt-4 flex flex-col gap-2.5 sm:flex-row sm:gap-3">
+    <div class="mt-6 flex flex-col gap-3 sm:flex-row">
       <BaseButton
         id="calculateButton"
         class="w-full"
         :disabled="!isValidForm"
         @click="calculateRepayment"
       >
+        <svg
+          class="mr-2 size-4"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"
+          />
+        </svg>
         Calculate
       </BaseButton>
 
       <BaseButton
         id="resetButton"
-        variant="danger"
+        variant="outline"
         class="w-full"
         @click="resetForm"
       >
+        <svg
+          class="mr-2 size-4"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+          />
+        </svg>
         Reset
       </BaseButton>
     </div>
