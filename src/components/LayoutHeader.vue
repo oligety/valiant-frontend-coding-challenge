@@ -2,7 +2,7 @@
 defineOptions({ name: 'LayoutHeader' })
 
 // Preload logo for faster rendering
-const logoUrl = new URL('@/assets/Valiant_Logo_Horizontal_Black.png', import.meta.url).href
+const logoUrl = new URL('@/assets/valiant_logo.svg', import.meta.url).href
 
 </script>
 
@@ -14,7 +14,7 @@ const logoUrl = new URL('@/assets/Valiant_Logo_Horizontal_Black.png', import.met
     <div class="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:items-center sm:gap-4">
       <!-- Logo and Title -->
       <div class="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:items-center sm:gap-4">
-        <div class="group relative shrink-0">
+        <div class="group relative shrink-0 pr-3">
           <a
             href="https://www.valiantfinance.com/"
             target="_blank"

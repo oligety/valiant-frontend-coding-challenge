@@ -144,7 +144,7 @@ describe('LayoutHeader', () => {
   it('logo image src is properly set', () => {
     const img = wrapper.find('img')
     expect(img.attributes('src')).toBeTruthy()
-    expect(img.attributes('src')).toContain('Valiant_Logo_Horizontal_Black.png')
+    expect(img.attributes('src')).toContain('valiant_logo.svg')
   })
 
   it('has responsive text sizing classes on heading', () => {
