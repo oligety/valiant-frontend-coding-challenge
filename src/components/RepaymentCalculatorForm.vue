@@ -12,7 +12,8 @@ defineOptions({ name: 'LoanRepaymentCalculatorForm' })
 const emit = defineEmits(['updatedRepaymentData', 'resetForm'])
 
 // reactive state
-const loanAmount = ref(null)
+const loanAmount = ref('')
+const loanAmountError = ref('')
 const selectedLoanPurpose = ref(null)
 const selectedRepaymentPeriod = ref(null)
 const selectedLoanTerm = ref(null)
@@ -21,25 +22,103 @@ const loanPurposeList = ref([])
 const repaymentPeriodList = ref([])
 const loanTermList = ref([])
 
+// constants
+const MIN_LOAN_AMOUNT = 1000
+const MAX_LOAN_AMOUNT = 20000000
+
 // computed properties
+const isValidLoanAmount = computed(() => {
+  if (!loanAmount.value) return false
+  const numValue = parseInt(loanAmount.value.replace(/\s/g, ''), 10)
+  return !isNaN(numValue) && numValue >= MIN_LOAN_AMOUNT && numValue <= MAX_LOAN_AMOUNT
+})
+
 const isValidForm = computed(() => {
-  return selectedLoanPurpose.value && selectedRepaymentPeriod.value && selectedLoanTerm.value && loanAmount.value
+  return (
+    isValidLoanAmount.value &&
+      selectedLoanPurpose.value &&
+      selectedRepaymentPeriod.value &&
+      selectedLoanTerm.value &&
+      !loanAmountError.value
+  )
 })
 
 // composables
 const { computeRepayment } = useRepaymentCalculator()
 
 // methods
+function formatCurrency (value) {
+  return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
+}
+
+function validateLoanAmount () {
+  loanAmountError.value = ''
+
+  if (!loanAmount.value || loanAmount.value.trim() === '') {
+    loanAmountError.value = 'Loan amount is required.'
+    return false
+  }
+
+  const cleanValue = loanAmount.value.replace(/\s/g, '')
+  const numValue = parseInt(cleanValue, 10)
+
+  if (isNaN(numValue)) {
+    loanAmountError.value = 'Please enter a valid number.'
+    return false
+  }
+
+  if (numValue < MIN_LOAN_AMOUNT) {
+    loanAmountError.value = `Minimum loan amount is ${formatCurrency(MIN_LOAN_AMOUNT)}.`
+    return false
+  }
+
+  if (numValue > MAX_LOAN_AMOUNT) {
+    loanAmountError.value = `Maximum loan amount is ${formatCurrency(MAX_LOAN_AMOUNT)}.`
+    return false
+  }
+
+  return true
+}
+
+function handleLoanAmountInput (event) {
+  // Remove any non-digit characters except spaces
+  let value = event.target.value.replace(/[^\d\s]/g, '')
+
+  // Remove all spaces first
+  value = value.replace(/\s/g, '')
+
+  // Prevent leading zeros
+  if (value.length > 1 && value[0] === '0') {
+    value = value.replace(/^0+/, '')
+  }
+
+  loanAmount.value = value
+
+  // Clear error when user starts typing (but don't validate yet)
+  if (loanAmountError.value && value.length > 0) {
+    loanAmountError.value = ''
+  }
+  if (loanAmount.value) {
+    validateLoanAmount()
+  }
+}
+
 function calculateRepayment () {
   calculationError.value = ''
+
+  // Validate all fields
+  if (!validateLoanAmount()) {
+    return
+  }
 
   if (!selectedLoanPurpose.value || !selectedRepaymentPeriod.value || !selectedLoanTerm.value) {
     calculationError.value = 'Please complete all fields.'
     return
   }
 
+  const cleanAmount = loanAmount.value.replace(/\s/g, '')
   const result = computeRepayment({
-    amount: loanAmount.value,
+    amount: parseInt(cleanAmount, 10),
     annualRate: selectedLoanPurpose.value.annualRate,
     paymentsPerYear: selectedRepaymentPeriod.value.value,
     totalMonths: selectedLoanTerm.value.value,
@@ -57,7 +136,8 @@ function resetForm () {
   selectedLoanPurpose.value = null
   selectedRepaymentPeriod.value = null
   selectedLoanTerm.value = null
-  loanAmount.value = null
+  loanAmount.value = ''
+  loanAmountError.value = ''
   calculationError.value = ''
 
   emit('resetForm')
@@ -109,13 +189,23 @@ onMounted(async () => {
     </div>
 
     <div class="flex flex-col space-y-4">
-      <BaseInput
-        id="loanAmount"
-        v-model="loanAmount"
-        label="Loan amount"
-        type="text"
-        placeholder="e.g. 10000"
-      />
+      <div>
+        <BaseInput
+          id="loanAmount"
+          v-model="loanAmount"
+          label="Loan amount"
+          type="text"
+          inputmode="numeric"
+          placeholder="e.g. 10'000"
+          :error="loanAmountError"
+          :success="!loanAmountError && isValidLoanAmount"
+          @input="handleLoanAmountInput"
+        >
+          <template #prefix>
+            <span class="text-lg font-bold text-gray-500">$</span>
+          </template>
+        </BaseInput>
+      </div>
 
       <BaseSelect
         id="loanPurpose"
@@ -159,11 +249,7 @@ onMounted(async () => {
               clip-rule="evenodd"
             />
           </svg>
-          <p
-            v-if="calculationError"
-            class="text-sm font-medium text-danger-700"
-            role="alert"
-          >
+          <p class="text-sm font-medium text-danger-700">
             {{ calculationError }}
           </p>
         </div>

@@ -17,7 +17,7 @@ To-dos
   - [x] Responsive design
 - [x] Implement calculation logic
 - [x] Add API service
-- [ ] Add / review input validation
+- [x] Add / review input validation
 - [ ] Add / review error handling
 - [ ] Add / review accessibility
 - [ ] Add internationalisation
