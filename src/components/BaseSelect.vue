@@ -113,7 +113,7 @@ onUnmounted(() => {
       leave-to-class="transform opacity-0 scale-95"
     >
       <ul
-        v-if="isOpen"
+        v-if="isOpen && props.options.length > 0"
         :id="`${props.id}-listbox`"
         class="absolute z-10 mt-2 max-h-60 w-full overflow-auto rounded-xl border-2 border-gray-200 bg-white py-2 shadow-large"
         role="listbox"
