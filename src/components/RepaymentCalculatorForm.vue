@@ -199,6 +199,7 @@ onMounted(async () => {
           placeholder="e.g. 10'000"
           :error="loanAmountError"
           :success="!loanAmountError && isValidLoanAmount"
+          :required="true"
           @input="handleLoanAmountInput"
         >
           <template #prefix>
@@ -212,6 +213,7 @@ onMounted(async () => {
         v-model="selectedLoanPurpose"
         label="Loan purpose"
         :options="loanPurposeList"
+        :required="true"
         placeholder="Select loan purpose"
       />
 
@@ -220,6 +222,7 @@ onMounted(async () => {
         v-model="selectedRepaymentPeriod"
         label="Repayment period"
         :options="repaymentPeriodList"
+        :required="true"
         placeholder="Select repayment period"
       />
 
@@ -228,6 +231,7 @@ onMounted(async () => {
         v-model="selectedLoanTerm"
         label="Loan term"
         :options="loanTermList"
+        :required="true"
         placeholder="Select loan term"
       />
 

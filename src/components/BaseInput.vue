@@ -28,6 +28,10 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  required: {
+    type: Boolean,
+    default: false,
+  },
 })
 
 // events
@@ -84,6 +88,11 @@ const labelClasses = computed(() => {
       :class="labelClasses"
     >
       {{ props.label }}
+      <span
+        v-if="props.required"
+        class="text-danger-500"
+        aria-label="required"
+      >*</span>
     </label>
     <div class="relative">
       <!-- Prefix slot (e.g., $) -->
