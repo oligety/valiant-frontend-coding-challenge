@@ -59,8 +59,13 @@ function toggleDropdown () {
     highlightedIndex.value = selectedIndex.value >= 0 ? selectedIndex.value : 0
     // Focus will help screen readers announce the opened state
     setTimeout(() => {
-      const highlighted = selectRef.value?.querySelector('[data-highlighted="true"]')
-      highlighted?.scrollIntoView({ block: 'nearest' })
+      // Find the actual DOM element by data attribute or class
+      const element = document.querySelector(`[data-option-id="${highlightedIndex.value}"]`) ||
+          document.querySelector('.option-highlighted')
+
+      if (element && typeof element.scrollIntoView === 'function') {
+        element.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+      }
     }, 0)
   } else {
     searchQuery.value = ''
