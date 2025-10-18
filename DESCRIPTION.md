@@ -1,4 +1,6 @@
-To-dos
+# Valiant frontend coding challenge - Olivier Liechti
+
+## To-dos
 
 - [x] Create initial component structure
   - [x] Main layout
@@ -30,4 +32,29 @@ To-dos
   - [x] Unsuccessful form submission
   - [x] Form validation
   - [x] Repayment widget
-- [ ] Update documentation
+- [x] Update documentation
+
+## Project summary
+
+### Used tools
+
+- JetBrains IntelliJ IDEA
+- JetBrains AI assistant
+- Google Stitch
+- Google Lighthouse
+
+### Considerations and notes
+
+#### State management
+
+I considered using Pinia for managing the state. However, I decided to not use it for this small project. The reason is that I wanted to keep the project as simple as possible.
+
+#### Using composable vs. service
+
+Early on I decided to trigger the repayment calculation via button click instead of "live" calculation after every input change. Reasoning: the user usually knows the loan amount needed. Therefore, I decided to have the calculation logic in a stateless service instead of a stateful composable.
+
+#### Further improvements
+
+- Internationalisation to support multiple languages
+- E2E tests: add 'data-testid' in components and use in Cypress tests instead of 'id' and CSS selectors to follow best practices
+- Add axios interceptors to improve API error handling
