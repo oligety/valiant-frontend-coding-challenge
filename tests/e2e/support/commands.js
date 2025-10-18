@@ -1,25 +1,16 @@
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+Cypress.Commands.add('assertEmptyFormValues', () => {
+  cy.get('input[id="loanAmount"]').should('have.value', '')
+  cy.get('#loanPurpose > span').should('have.text', 'Select loan purpose')
+  cy.get('#loanPeriod > span').should('have.text', 'Select repayment period')
+  cy.get('#loanTerm > span').should('have.text', 'Select loan term')
+})
+
+Cypress.Commands.add('enterCalculationFormValues', (loanAmount) => {
+  cy.get('input[id="loanAmount"]').type(loanAmount)
+  cy.get('#loanPurpose').click()
+  cy.get('#loanPurpose').press('Enter')
+  cy.get('#loanPeriod').click()
+  cy.get('#loanPeriod').press('Enter')
+  cy.get('#loanTerm').click()
+  cy.get('#loanTerm').press('Enter')
+})
