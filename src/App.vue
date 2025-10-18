@@ -17,6 +17,7 @@ const repaymentData = ref(null)
 function updateRepaymentData (data) {
   repaymentData.value = data
 }
+
 function resetRepaymentData () {
   repaymentData.value = null
 }

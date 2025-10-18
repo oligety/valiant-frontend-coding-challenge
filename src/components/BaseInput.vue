@@ -44,11 +44,6 @@ const emit = defineEmits(['update:modelValue'])
 // slots
 const slots = useSlots()
 
-// methods
-function updateInput (event) {
-  emit('update:modelValue', event.target.value)
-}
-
 // computed properties
 const inputClasses = computed(() => {
   const baseClasses = 'block w-full rounded-xl border-2 bg-white py-3 text-base text-gray-900 transition-all placeholder:text-gray-400 focus:outline-none focus:ring-4 sm:text-sm'
@@ -81,6 +76,11 @@ const labelClasses = computed(() => {
   if (props.success) return 'text-success-600'
   return 'text-gray-700 group-focus-within:text-primary-700'
 })
+
+// methods
+function updateInput (event) {
+  emit('update:modelValue', event.target.value)
+}
 </script>
 
 <template>

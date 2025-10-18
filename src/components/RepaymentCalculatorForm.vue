@@ -164,6 +164,7 @@ onMounted(async () => {
     id="repaymentCalculatorForm"
     class="animate-slide-up rounded-2xl border-2 border-gray-100 bg-white p-5 shadow-large backdrop-blur-sm transition-all duration-300 hover:border-gray-200 hover:shadow-xl sm:p-6"
   >
+    <!-- Form header with icon and title -->
     <div class="mb-5 flex items-center gap-3">
       <div class="flex size-10 items-center justify-center rounded-xl bg-gradient-to-br from-primary-500 to-primary-700 shadow-medium">
         <svg
@@ -185,6 +186,7 @@ onMounted(async () => {
       </h2>
     </div>
 
+    <!-- Form fields -->
     <div class="flex flex-col space-y-4">
       <div>
         <BaseInput
@@ -258,6 +260,7 @@ onMounted(async () => {
       </div>
     </div>
 
+    <!-- Form footer with buttons -->
     <div class="mt-6 flex flex-col gap-3 sm:flex-row">
       <BaseButton
         id="calculateButton"

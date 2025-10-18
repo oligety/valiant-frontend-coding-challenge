@@ -61,7 +61,7 @@ const props = defineProps({
     </div>
 
     <div class="flex flex-1 flex-col space-y-5">
-      <!-- Primary Result - Enhanced -->
+      <!-- Repayments per period -->
       <div
         id="repaymentPerPeriod"
         class="rounded-2xl bg-primary-600 p-8 transition-all hover:scale-[1.02] hover:bg-primary-700"
@@ -75,7 +75,7 @@ const props = defineProps({
         </p>
       </div>
 
-      <!-- Secondary Results Grid - Enhanced -->
+      <!-- Repayments total -->
       <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div
           id="repaymentTotal"
@@ -90,6 +90,7 @@ const props = defineProps({
           </p>
         </div>
 
+        <!-- Interest rate -->
         <div
           id="interestRate"
           class="rounded-xl bg-secondary-600 p-5 transition-all hover:scale-[1.02] hover:bg-secondary-700"

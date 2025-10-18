@@ -25,9 +25,9 @@ To-dos
   - [x] Components
   - [x] Services
   - [x] Utilities
-- [ ] Create E2E tests
-  - [ ] Successful form submission
-  - [ ] Unsuccessful form submission
-  - [ ] Form validation
-  - [ ] Repayment widget
+- [x] Create E2E tests
+  - [x] Successful form submission
+  - [x] Unsuccessful form submission
+  - [x] Form validation
+  - [x] Repayment widget
 - [ ] Update documentation
