@@ -22,3 +22,10 @@ jobs:
         run: npm run test:unit
       - name: Build project
         run: npm run build
+      - name: Start backend
+        run: npm run backend &
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
+        with:
+          start: npm run dev
+          wait-on: 'http://localhost:5173'
