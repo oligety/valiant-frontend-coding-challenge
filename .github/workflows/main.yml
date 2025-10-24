@@ -25,6 +25,6 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
-          start: npm run backend, npm run dev
+          start: npm run backend &, npm run dev
           # wait for all services to respond
           wait-on: 'http://localhost:5000, http://localhost:5173'
